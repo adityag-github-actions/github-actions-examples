@@ -1,0 +1,49 @@
+name: GitHub Actions Workflow Structure
+on:
+  push:
+    branches:
+      - "main"
+
+jobs:
+  build_job:
+    name: "Build"
+    runs-on: ubuntu-latest
+    steps:
+    - name: "Checkout Code"
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    
+    - name: Commands
+      run: |
+        cat /etc/os-release
+        ifconfig
+        curl ifconfig.io
+
+  test_job:
+    name: "Build"
+    needs: build_job
+    runs-on: ubuntu-latest
+    steps:
+    - name: "Checkout Code"
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    
+    - name: "Test"
+      run: |
+        echo "Test"
+
+  deploy:
+    name: "Deploy"
+    needs: test_job
+    runs-on: ubuntu-latest
+    steps:
+    - name: "Checkout Code"
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    
+    - name: "Deploy"
+      run: |
+        echo "Deploy"
